@@ -1,0 +1,25 @@
+# Define the tokens and their patterns
+tokens:
+  - name: VAR
+    pattern: '[a-zA-Z_][a-zA-Z0-9_]*'
+  - name: NUMBER
+    pattern: '\d+(\.\d+)?'
+  - name: ASSIGN
+    pattern: '='
+  - name: PLUS
+    pattern: '\+'
+  - name: MINUS
+    pattern: '-'
+  - name: TIMES
+    pattern: '\*'
+  - name: DIVIDE
+    pattern: '/'
+  - name: LPAREN
+    pattern: '\('
+  - name: RPAREN
+    pattern: '\)'
+
+# Define the rules for skipping whitespace and comments
+ignore:
+  - '[\t\r\n ]+'
+  - '#.*'
