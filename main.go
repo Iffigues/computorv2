@@ -19,7 +19,7 @@ func setFlagHelp() {
 }
 
 func main() {
-	_, err := lexer.GetToken("./data/token.yaml")
+	lex, err := lexer.NewToken("./data/token.yaml")
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -35,10 +35,11 @@ func main() {
 		fmt.Println(err)
 		return
 	}
-	if f != nil {
+	for _, val := range f {
+		fmt.Println(val)
 	}
 
-	if err := terms("@>:", *history); err != nil {
+	if err := terms("@>:", *history, lex); err != nil {
 		fmt.Println(err)
 	}
 }

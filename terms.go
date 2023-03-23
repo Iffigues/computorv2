@@ -1,11 +1,12 @@
 package main
 
 import (
+	"computorv2/src/lexer"
 	"computorv2/src/prompt"
 	"fmt"
 )
 
-func terms(a, h string) (err error) {
+func terms(a, h string, lex lexer.Tokens) (err error) {
 	p, err := prompt.GetPrompt(a, h)
 	if err != nil {
 		return err
@@ -20,7 +21,7 @@ func terms(a, h string) (err error) {
 			err = nil
 			break
 		}
-		println(text)
+		fmt.Println(lex.Tokenize(text))
 	}
 	return nil
 }
