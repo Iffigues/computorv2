@@ -19,7 +19,11 @@ func setFlagHelp() {
 }
 
 func main() {
-	lexer.GetToken("./token.yaml")
+	_, err := lexer.GetToken("./data/token.yaml")
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
 	history := flag.String("history", "/tmp/readline.tmp", "log file history")
 
 	setFlagHelp()
@@ -32,7 +36,6 @@ func main() {
 		return
 	}
 	if f != nil {
-
 	}
 
 	if err := terms("@>:", *history); err != nil {
