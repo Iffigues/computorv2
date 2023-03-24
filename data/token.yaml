@@ -21,4 +21,4 @@ tokens:
 
 # Define the rules for skipping whitespace and comments
 ignore:
-  - '[\t\r\n ]+'
+  - ' '

@@ -37,7 +37,7 @@ func IsValidIdentifier(s string) bool {
 }
 
 func (tokens Tokens) GetToken(input string) (Token, bool) {
-	// Match a token pattern using regular expressions
+
 	for _, token := range tokens.Tokens {
 		pattern, err := regexp.Compile("^" + token.Pattern)
 		if err != nil {
@@ -56,32 +56,37 @@ func (tokens Tokens) GetToken(input string) (Token, bool) {
 func (tokens Tokens) Tokenize(input string) ([]Token, error) {
 	var result []Token
 
-	// Compile a regex pattern for the ignore rules
-	ignorePattern, err := regexp.Compile(strings.Join(tokens.Ignore, "|"))
-	if err != nil {
-		return nil, err
-	}
-
-	// Loop over the input string and extract tokens
 	for len(input) > 0 {
-		// Skip whitespace and comments
-		if match := ignorePattern.FindString(input); match != "" {
-			input = input[len(match):]
+		// Skip over ignored patterns
+		if contains(tokens.Ignore, input) {
+			input = input[1:]
 			continue
 		}
 
-		// Get the next token
+		// Match a token pattern using regular expressions
 		token, ok := tokens.GetToken(input)
 		if !ok {
-			return nil, fmt.Errorf("unexpected token at position %d", len(input))
+			return nil, fmt.Errorf("no matching token found for input: %s", input)
 		}
 
-		// Add the token to the result slice
 		result = append(result, token)
-
-		// Move the input cursor past the matched token
+		fmt.Println(len(token.Pattern), "|", input, "|")
 		input = input[len(token.Pattern):]
 	}
 
 	return result, nil
+}
+
+func contains(list []string, item string) bool {
+	fmt.Println(list, item, "eeee")
+	return strings.HasPrefix(item, " ")
+	if item == " " {
+		return true
+	}
+	for _, element := range list {
+		if element == item {
+			return true
+		}
+	}
+	return false
 }
