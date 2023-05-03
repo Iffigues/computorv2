@@ -11,7 +11,7 @@ tokens:
   - name: MINUS
     pattern: '-'
   - name: TIMES
-    pattern: '*'
+    pattern: '\*'
   - name: DIVIDE
     pattern: '/'
   - name: LPAREN

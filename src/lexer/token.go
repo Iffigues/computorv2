@@ -78,14 +78,9 @@ func (tokens Tokens) Tokenize(input string) ([]Token, error) {
 }
 
 func contains(list []string, item string) bool {
-	fmt.Println(list, item, "eeee")
-	return strings.HasPrefix(item, " ")
-	if item == " " {
-		return true
-	}
 	for _, element := range list {
-		if element == item {
-			return true
+		if strings.HasPrefix(item, element) {
+			return strings.HasPrefix(item, element)
 		}
 	}
 	return false
