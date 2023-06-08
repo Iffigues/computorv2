@@ -2,10 +2,14 @@ package main
 
 import (
 	"computorv2/src/lexer"
+	"embed"
 	"flag"
 	"fmt"
 	"os"
 )
+
+//go:embed data
+var data embed.FS
 
 func setFlagHelp() {
 	flag.Usage = func() {
@@ -19,11 +23,6 @@ func setFlagHelp() {
 }
 
 func main() {
-	lex, err := lexer.NewToken("./data/token.yaml")
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
 	history := flag.String("history", "/tmp/readline.tmp", "log file history")
 
 	setFlagHelp()
@@ -33,6 +32,16 @@ func main() {
 	f, err := getFiles(args)
 	if err != nil {
 		fmt.Println(err)
+		return
+	}
+
+	token, err := data.ReadFile("data/token.yaml")
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	lex, err := lexer.NewToken(token)
+	if err != nil {
 		return
 	}
 	for _, val := range f {

@@ -2,7 +2,6 @@ package lexer
 
 import (
 	"fmt"
-	"io/ioutil"
 	"regexp"
 	"strings"
 
@@ -19,12 +18,7 @@ type Tokens struct {
 	Ignore []string `yaml:"ignore"`
 }
 
-func NewToken(tokenFile string) (tokens Tokens, err error) {
-	yamlData, err := ioutil.ReadFile(tokenFile)
-	if err != nil {
-		return tokens, err
-	}
-
+func NewToken(yamlData []byte) (tokens Tokens, err error) {
 	err = yaml.Unmarshal(yamlData, &tokens)
 	if err != nil {
 		return tokens, err

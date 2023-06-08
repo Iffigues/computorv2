@@ -8,7 +8,7 @@ GOMOD=$(GOCMD) mod
 
 export GO111MODULE=on
 
-all: deps test build
+all: test build
 build: 
 		$(GOGET)
 		$(GOBUILD)
@@ -22,10 +22,6 @@ fclean:
 		$(GOCLEAN)
 		rm -f go.sum
 		rm -f $(BINARY_NAME)
-
-deps:
-		$(GOMOD) tidy
-		$(GOGET) computer/src/prompt
 
 re: deps test build
 
