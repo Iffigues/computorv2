@@ -5,6 +5,7 @@ import (
 	"embed"
 	"flag"
 	"fmt"
+	"log"
 	"os"
 )
 
@@ -30,25 +31,24 @@ func main() {
 	flag.Parse()
 	args := flag.Args()
 	f, err := getFiles(args)
+
 	if err != nil {
-		fmt.Println(err)
-		return
+		log.Fatal(err)
 	}
 
 	token, err := data.ReadFile("data/token.yaml")
 	if err != nil {
-		fmt.Println(err)
-		return
+		log.Fatal(err)
 	}
 	lex, err := lexer.NewToken(token)
 	if err != nil {
-		return
+		log.Fatal(err)
 	}
 	for _, val := range f {
 		fmt.Println(val)
 	}
 
 	if err := terms("@>:", *history, lex); err != nil {
-		fmt.Println(err)
+		log.Fatal(err)
 	}
 }
